@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Rx from 'rxjs';
-import { Http, Response }          from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 import { FeedSourceService } from './feed-source';
 
@@ -17,25 +17,13 @@ export class FeedFetcherService {
   }
 
   fetchFeed() {
-    const self = this;
     const sources = this.feedSourceService.getFeedSource();
-    Rx.Observable
-      .interval(3000)
-      .timeInterval()
-      .of(...sources)
-      .map((source) => {
-        return self.http.get(source).map(x => {
-          return x.text();
-          /* parseString(x.text(), (error, result) => {
-           *   console.log(result);
-           * })*/
-        }).subscribe((x) => {
+    const fetch = Rx.Observable.of(...sources).map((source) => {
+      return this.http.get(source).map(x => x.text()).subscribe((x) => {
+        return x;
+      });
+    }).delay(3000).repeat();
 
-        });
-      })
-      .subscribe();
-
+    fetch.subscribe();
   }
-
-
 }
