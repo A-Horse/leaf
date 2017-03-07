@@ -3,6 +3,7 @@ import * as Rx from 'rxjs';
 import { Http, Response } from '@angular/http';
 
 import { FeedSourceService } from './feed-source';
+import { WebSql}
 
 var parseString = require('xml2js').parseString;
 var parse = require('xml-parser');
@@ -11,8 +12,6 @@ var parse = require('xml-parser');
 export class FeedFetcherService {
 
   constructor(private feedSourceService: FeedSourceService, private http: Http) {
-    console.log('feed fetcher');
-
     this.fetchFeed();
   }
 

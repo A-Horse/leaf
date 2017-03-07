@@ -1,17 +1,21 @@
 import { Component, Input } from '@angular/core';
-import { FeedFetcherService } from '../../service/feed-fetcher';
-import { FeedSourceService } from '../../service/feed-source';
+import { FeedInterfaceService } from '../../service/feed-interface';
 
 @Component({
   selector: 'atoms',
   templateUrl: './index.html',
-  providers: [FeedFetcherService, FeedSourceService]
+  providers: [FeedInterfaceService]
 })
 
 export class AtomsComponent {
+  atoms = []
+  constructor(private feedInterfaceService: FeedInterfaceService) {
+    this.getUnReading();
+  }
 
-  constructor(private feedFetcherService: FeedFetcherService) {
-
-
+  getUnReading() {
+    this.feedInterfaceService.getUnreading(50).subscribe((atoms) => {
+      this.atoms = atoms;
+    });
   }
 }
