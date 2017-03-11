@@ -14,8 +14,11 @@ export class AtomsComponent {
   }
 
   getUnReading() {
-    this.feedInterfaceService.getUnreading(50).subscribe((atoms) => {
+    const rx = this.feedInterfaceService.getUnreading(50).subscribe((atoms) => {
       this.atoms = atoms;
     });
+
+
+
   }
 }
