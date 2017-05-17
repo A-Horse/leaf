@@ -25,8 +25,9 @@ export class FeedInterfaceService {
   }
 
   requestRemote(category, number) {
-    console.log(this.http);
     return this.http.get(`${this.defaultRemote}/${category}/${number}`)
           .map(res => res.json().result);
+
+
   }
 }
